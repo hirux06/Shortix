@@ -18,7 +18,7 @@ const GenerateShortLink = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/create",
+        "https://shortix.onrender.com/create",
         { url: fullUrl },
         { withCredentials: true }
       );

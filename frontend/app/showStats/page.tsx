@@ -63,7 +63,7 @@ const StatsCard = ({ link }: { link: LinkItem }) => {
       <div className="flex items-center gap-2 text-gray-700">
         <span className="font-semibold">Short:</span>
         <a
-          href={`http://localhost:8080/${link.shortUrl}`}
+          href={`https://shortix.onrender.com/${link.shortUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-indigo-600 font-mono hover:underline"
@@ -108,7 +108,7 @@ const ShowStatistics = () => {
     const fetchStats = async () => {
       try {
         const res = await axios.post(
-          'http://localhost:8080/generateStats',
+          'https://shortix.onrender.com/generateStats',
           {},
           { withCredentials: true }
         );

@@ -27,7 +27,7 @@ main()
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "https://shortix-five.vercel.app", 
   credentials: true
 }));
 

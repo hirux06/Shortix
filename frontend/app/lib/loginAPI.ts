@@ -7,7 +7,7 @@ import Router from "next/router";
 export const login = async (email: string, password: string) => {
     try {
         const response = await axios.post(
-            "http://localhost:8080/auth/login",
+            "https://shortix.onrender.com/auth/login",
             { email, password },
             { withCredentials: true }
         );
