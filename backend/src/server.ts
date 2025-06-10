@@ -26,9 +26,22 @@ main()
 
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  'http://localhost:3000',           
+  'https://shortix-five.vercel.app'  
+];
+
 app.use(cors({
-  origin: "https://shortix-five.vercel.app", 
-  credentials: true
+  origin: function (origin, callback) {
+    
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 app.use(cookieParser());

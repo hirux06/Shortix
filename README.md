@@ -4,7 +4,7 @@
 Welcome to **Shortix** – your sleek and secure solution to turn long URLs into short, shareable magic! 🎯✨  
 Fast, customizable, analytics-powered & developer-friendly.
 
-![Shortix Banner]() <!-- Optional: Add your banner image -->
+![Shortix Banner](image.png)
 
 ---
 
@@ -16,7 +16,6 @@ Fast, customizable, analytics-powered & developer-friendly.
 - 🔐 **Spam Protection** — Input validation, safe URL checking, and rate limiting.
 - ⏳ **Link Expiration** — Set expiration dates for temporary sharing.
 - 📱 **Mobile-Friendly UI** — Fully responsive design for all devices.
-- 🧠 **Developer API** — Programmatic access to shorten URLs via REST API.
 - 🧾 **QR Code Generator** — Instantly create and download QR codes for your links.
 
 ---
@@ -60,9 +59,9 @@ BASE_URL=http://localhost:5000
 
 | Method | Endpoint             | Description                |
 |--------|----------------------|----------------------------|
-| POST   | `/api/shorten`       | Shorten a long URL         |
+| POST   | `/create/`       | Shorten a long URL         |
 | GET    | `/:shortCode`        | Redirect to original URL   |
-| GET    | `/api/analytics/:id` | Get click stats (optional) |
+| GET    | `/generateStats` | Get click stats (optional) |
 
 ---
 
