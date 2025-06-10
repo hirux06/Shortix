@@ -50,7 +50,7 @@ const Page = () => {
         <nav className="space-x-6">
           <Link href="#features" className="text-blue-700 font-medium hover:underline">Features</Link>
           <Link href="/dashboard" className="text-blue-700 font-medium hover:underline">Stats</Link>
-          <Link href="/login" className="text-blue-700 font-medium hover:underline">Get Started</Link>
+          <Link href="/register" className="text-blue-700 font-medium hover:underline">Get Started</Link>
         </nav>
       </header>
 
@@ -67,7 +67,7 @@ const Page = () => {
             placeholder="Paste your long URL here..."
             className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <Link href="/login">
+          <Link href="/register">
             <button
               type="button"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition"

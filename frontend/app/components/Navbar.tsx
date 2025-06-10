@@ -7,8 +7,8 @@ const Navbar = () => {
         <div className='text-xl font-bold'><Link href="/">Shortix</Link></div>
         <div>
             <ul className='flex gap-10'>
-                <li>QR Code</li>
-                <li>URL Shortening</li>
+                <li><Link href="/generateQR">QR Code</Link></li>
+                <li><Link href="/generateQR">Shorten URL</Link></li>
                 <li><Link href="/login">Login</Link></li>
                 <li><Link href="/register">Register</Link></li>
             </ul>

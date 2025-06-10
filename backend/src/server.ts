@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser'
 import { authMiddleware } from './middlewares/authValidator.js';
 import generateQRRoutes from './routes/generateQRRoutes.js';
 import cors from 'cors';
+import statsRoutes from './routes/statsRoutes.js';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use("/auth", authRouter)
 app.use("/create",authMiddleware,validateLongUrlMiddleware,shortenUrlRoute)
 app.use("/generateQR", authMiddleware, validateQRUrl, generateQRRoutes)
+app.use("/generateStats", authMiddleware, statsRoutes)
 app.get("/:url",validateShortUrlMiddleware, redirectUrl)
 
 
