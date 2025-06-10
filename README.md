@@ -97,11 +97,7 @@ We ❤️ contributions from the community!
 
 ---
 
-## 📄 License
 
-This project is licensed under the **MIT License** © [Saran Hiruthik M](https://github.com/hirux06)
-
----
 
 ## 👨‍💻 Author
 
@@ -117,9 +113,3 @@ Your star means a lot. Let's grow this project together! 🚀
 
 ---
 
-✅ You can also:
-- Add badges (e.g., `npm`, `license`, `PRs welcome`, `CI passing`) via [Shields.io](https://shields.io/)
-- Include GIF demos of link shortening
-- Add a `CONTRIBUTORS.md` later if you get collaborators
-
-Want me to generate a custom banner image or GitHub Open Graph preview for this?
