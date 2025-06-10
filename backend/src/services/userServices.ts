@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 
 export const cookieOptions: CookieOptions = {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     maxAge: 1000*60*5
 }

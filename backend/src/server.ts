@@ -8,6 +8,7 @@ import authRouter from './routes/authRoutes.js';
 import cookieParser from 'cookie-parser'
 import { authMiddleware } from './middlewares/authValidator.js';
 import generateQRRoutes from './routes/generateQRRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -23,6 +24,11 @@ main()
 
 
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: "http://localhost:3000", 
+  credentials: true
+}));
 
 app.use(cookieParser());
 

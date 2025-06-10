@@ -1,103 +1,127 @@
-import Image from "next/image";
+import Link from 'next/link';
+import React from 'react';
 
-export default function Home() {
+const features = [
+  {
+    title: 'Shorten URLs Instantly',
+    description: 'Turn those long, messy links into sleek, shareable ones with just a click.',
+    icon: (
+      <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+        <path d="M17 7h2a5 5 0 010 10h-2M7 17H5a5 5 0 010-10h2" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 12h8" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'Generate QR Codes',
+    description: 'Create QR codes for any link — perfect for sharing in print or on screens.',
+    icon: (
+      <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" stroke="#2563eb" strokeWidth="2"/>
+        <rect x="14" y="3" width="7" height="7" rx="2" stroke="#2563eb" strokeWidth="2"/>
+        <rect x="14" y="14" width="7" height="7" rx="2" stroke="#2563eb" strokeWidth="2"/>
+        <path d="M7 17h.01M7 14h.01M10 17h.01M10 14h.01M3 14h7v7H3z" stroke="#2563eb" strokeWidth="2"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'Track Stats',
+    description: 'See how your links perform with real-time clicks and analytics.',
+    icon: (
+      <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+        <path d="M3 17v-2a4 4 0 014-4h10a4 4 0 014 4v2" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="12" cy="7" r="4" stroke="#2563eb" strokeWidth="2"/>
+      </svg>
+    ),
+  },
+];
+
+const Page = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col">
+      <header className="flex justify-between items-center px-8 py-6">
+        <div className="flex items-center gap-2">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="#2563eb"/>
+            <path d="M8 12h8M12 8v8" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <span className="text-2xl font-bold text-blue-700"><Link href="/">Shortix</Link></span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <nav className="space-x-6">
+          <Link href="#features" className="text-blue-700 font-medium hover:underline">Features</Link>
+          <Link href="/dashboard" className="text-blue-700 font-medium hover:underline">Stats</Link>
+          <Link href="/login" className="text-blue-700 font-medium hover:underline">Get Started</Link>
+        </nav>
+      </header>
+
+      <section className="flex flex-col items-center justify-center flex-1 px-4">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-blue-800 mb-4 text-center">
+          Make Links <span className="text-blue-500">Simple</span> & Smart
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 mb-8 text-center max-w-2xl">
+          Welcome to <span className="font-semibold text-blue-700">Shortix</span> — the easiest way to shorten URLs, create QR codes, and track your link performance with ease.
+        </p>
+        <form className="w-full max-w-xl flex gap-2 mb-10">
+          <input
+            type="url"
+            placeholder="Paste your long URL here..."
+            className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <Link href="/login">
+            <button
+              type="button"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition"
+            >
+              Shorten It!!
+            </button>
+          </Link>
+        </form>
+      </section>
+
+      <section id="features" className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-blue-800 mb-10">Why You'll Love Shortix</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, idx) => (
+              <div key={idx} className="bg-blue-50 rounded-xl p-8 flex flex-col items-center shadow hover:shadow-lg transition">
+                <div className="mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">{feature.title}</h3>
+                <p className="text-gray-600 text-center">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="stats" className="py-16 bg-gradient-to-r from-blue-100 to-blue-50">
+        <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="text-3xl font-bold text-blue-800 mb-4">Know What Works</h2>
+            <p className="text-gray-700 mb-6">
+              Get real-time insights on your links. Track clicks, monitor engagement, and learn more about your audience — all from one place.
+            </p>
+            <a
+              href="/login"
+              className="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition"
+            >
+              Start Tracking
+            </a>
+          </div>
+          <div className="flex-1 flex justify-center">
+            <img
+              src="https://illustrations.popsy.co/gray/web-analytics.svg"
+              alt="Analytics"
+              className="w-72 h-72 object-contain"
+            />
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-8 text-center text-gray-500 text-sm">
+        &copy; {new Date().getFullYear()} Shortix. Made with ❤️ for link lovers.
       </footer>
     </div>
   );
-}
+};
+
+export default Page;
