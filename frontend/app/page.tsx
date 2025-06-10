@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react';
 
 const features = [
@@ -80,7 +81,7 @@ const Page = () => {
 
       <section id="features" className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-blue-800 mb-10">Why You'll Love Shortix</h2>
+          <h2 className="text-3xl font-bold text-center text-blue-800 mb-10">Why You&apos;ll Love Shortix</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, idx) => (
               <div key={idx} className="bg-blue-50 rounded-xl p-8 flex flex-col items-center shadow hover:shadow-lg transition">
@@ -107,14 +108,15 @@ const Page = () => {
               Start Tracking
             </a>
           </div>
-          <div className="flex-1 flex justify-center">
-            <img
+            <Image
               src="https://illustrations.popsy.co/gray/web-analytics.svg"
               alt="Analytics"
+              width={288}
+              height={288}
               className="w-72 h-72 object-contain"
+              unoptimized
             />
           </div>
-        </div>
       </section>
 
       <footer className="py-8 text-center text-gray-500 text-sm">
