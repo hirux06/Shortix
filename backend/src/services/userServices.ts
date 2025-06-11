@@ -1,9 +1,9 @@
 import jsonwebtoken from "jsonwebtoken"
 import UserModel from "../models/userModel.ts"
-import { Request, Response } from "express";
 import bcryptjs from "bcryptjs"
 import { CookieOptions } from 'express';
 import mongoose from "mongoose";
+import { BadRequestError, NotFoundError, UnauthorizedError } from "../utils/errors.js";
 
 
 export const cookieOptions: CookieOptions = {
@@ -14,13 +14,12 @@ export const cookieOptions: CookieOptions = {
 }
 
 
-export const registerUser = async(name: string, password: string, email: string, req: Request, res: Response) => {
+export const registerUser = async(name: string, password: string, email: string) => {
    try {
-    const isUserExisting = await UserModel.find({ email });
+    const isUserExisting = await UserModel.findOne({ email });
 
-    if(isUserExisting.length > 0) {
-        res.status(400).json({ success: false, message: "User already exists. Kindly login"})
-        return;
+    if(isUserExisting) {
+        throw new BadRequestError("User already exists. Kindly login");
     }
 
     const hashedPassword = await bcryptjs.hash(password, 10)
@@ -32,66 +31,55 @@ export const registerUser = async(name: string, password: string, email: string,
     })
 
     await user.save()
-
-    const token = signIn(user._id, req, res)
     
-    res.status(201).send({ success: true, message: "User Successfully registered", token})
+    return user;
    } catch (error) {
-    res.status(500).send({ success: false, message: "Internal server error ",error: error})
+    if (error instanceof BadRequestError) {
+        throw error;
+    }
+    throw new Error(`Registration failed: ${error.message}`);
    }
-
 }
 
 
-export const loginUser = async(password: string, email: string, req: Request, res: Response) => {
-    try{
-        if(!(email || password)) {
-            res.status(400).json({ success: false, message: "Email or Password is required to login" });
-            return;
-        }
+export const loginUser = async(password: string, email: string) => {
+    if(!(email || password)) {
+        throw new BadRequestError("Email or Password is required to login");
+    }
 
-        const isUserExisting = await UserModel.findOne({ email })
-        console.log(isUserExisting)
-        if(!isUserExisting){
-            res.status(404).json({ success: false, message: "User is not found. Kindly register" });
-            return;
-        }
+    const isUserExisting = await UserModel.findOne({ email });
+    
+    if(!isUserExisting){
+        throw new NotFoundError("User is not found. Kindly register");
+    }
 
-        const isPasswordValid = await bcryptjs.compare(password, isUserExisting.password)
-        console.log(isPasswordValid)
-        if(!isPasswordValid) {
-            res.status(401).json({ success: false, message: "Password is invalid. Kindly reenter correct password" });
-            return;
-        }
+    const isPasswordValid = await bcryptjs.compare(password, isUserExisting.password);
+    
+    if(!isPasswordValid) {
+        throw new UnauthorizedError("Password is invalid. Kindly reenter correct password");
+    }
 
-        const token = signIn(isUserExisting._id, req, res)
-        res.status(200).send({ success: true, message: "User Login Successful", token})
-
-    }catch (error) {
-    res.status(500).send({ success: false, message: "Internal server error ",error: error})
-   }
-
+    return isUserExisting;
 }
 
 
-export const signIn = (id : mongoose.Types.ObjectId, req: Request, res: Response) : string => {
-    const jwtSecret = process.env.JWT_SECRET 
+export const signIn = (id : mongoose.Types.ObjectId) : string => {
+    const jwtSecret = process.env.JWT_SECRET;
 
     if (!jwtSecret) {
         throw new Error('JWT_SECRET is not configured');
     }
-    const token = jsonwebtoken.sign({ id: id }, jwtSecret, { expiresIn: '1d' })
-    res.cookie("accesstoken", token, cookieOptions)
-    return token
+    
+    return jsonwebtoken.sign({ id: id }, jwtSecret, { expiresIn: '1d' });
 }
 
 export const verifyToken = (token: string) : string => {
-    const jwtSecret = process.env.JWT_SECRET 
+    const jwtSecret = process.env.JWT_SECRET;
 
     if (!jwtSecret) {
         throw new Error('JWT_SECRET is not configured');
     }
 
-    const decoded = jsonwebtoken.verify(token, jwtSecret) as { id: string }
-    return decoded.id
+    const decoded = jsonwebtoken.verify(token, jwtSecret) as { id: string };
+    return decoded.id;
 }
