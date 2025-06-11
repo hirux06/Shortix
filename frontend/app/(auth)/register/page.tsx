@@ -26,7 +26,7 @@ export default function RegisterPage() {
 
     try {
       const response = await axios.post(
-        "https://shortix.onrender.com/auth/register",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
         { name, email, password },
         { withCredentials: true }
       );

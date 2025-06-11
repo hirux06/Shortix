@@ -10,6 +10,7 @@ import { authMiddleware } from './middlewares/authValidator.js';
 import generateQRRoutes from './routes/generateQRRoutes.js';
 import cors from 'cors';
 import statsRoutes from './routes/statsRoutes.js';
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -46,11 +47,27 @@ app.use(cors({
 
 app.use(cookieParser());
 
-app.use("/auth", authRouter)
-app.use("/create",authMiddleware,validateLongUrlMiddleware,shortenUrlRoute)
-app.use("/generateQR", authMiddleware, validateQRUrl, generateQRRoutes)
-app.use("/generateStats", authMiddleware, statsRoutes)
-app.get("/:url",validateShortUrlMiddleware, redirectUrl)
+// Strict rate limiter for authentication routes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // Limit each IP to 10 login/register requests per window
+  message: 'Too many requests from this IP, please try again after 15 minutes',
+});
+
+// General rate limiter for all other API routes
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+});
+
+app.use("/auth/login", authLimiter);
+app.use("/auth/register", authLimiter);
+app.use("/auth", authRouter);
+
+app.use("/create", apiLimiter, authMiddleware, validateLongUrlMiddleware, shortenUrlRoute);
+app.use("/generateQR", apiLimiter, authMiddleware, validateQRUrl, generateQRRoutes);
+app.use("/generateStats", apiLimiter, authMiddleware, statsRoutes);
+app.get("/:url", validateShortUrlMiddleware, redirectUrl);
 
 
 app.get('/', (_req: Request, res: Response) => {

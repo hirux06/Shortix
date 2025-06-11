@@ -39,7 +39,7 @@ const StatsCard = ({ link }: { link: LinkItem }) => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
-      `${window.location.origin}/${link.shortUrl}`
+      `${process.env.NEXT_PUBLIC_API_URL}/${link.shortUrl}`
     );
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
@@ -63,7 +63,7 @@ const StatsCard = ({ link }: { link: LinkItem }) => {
       <div className="flex items-center gap-2 text-gray-700">
         <span className="font-semibold">Short:</span>
         <a
-          href={`https://shortix.onrender.com/${link.shortUrl}`}
+          href={`${process.env.NEXT_PUBLIC_API_URL}/${link.shortUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-indigo-600 font-mono hover:underline"
@@ -108,7 +108,7 @@ const ShowStatistics = () => {
     const fetchStats = async () => {
       try {
         const res = await axios.post(
-          'https://shortix.onrender.com/generateStats',
+          `${process.env.NEXT_PUBLIC_API_URL}/generateStats`,
           {},
           { withCredentials: true }
         );

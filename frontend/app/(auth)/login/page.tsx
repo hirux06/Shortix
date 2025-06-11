@@ -17,7 +17,7 @@ export default function LoginPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("https://shortix.onrender.com/auth/validate", {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/validate`, {
           withCredentials: true,
         });
         if (res.status === 200) {
@@ -40,7 +40,7 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post(
-        "https://shortix.onrender.com/auth/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         { email, password },
         { withCredentials: true }
       );

@@ -25,7 +25,7 @@ const GenerateQR = () => {
 
     try {
       const res = await axios.post(
-        'https://shortix.onrender.com/generateQR',
+        `${process.env.NEXT_PUBLIC_API_URL}/generateQR`,
         { url }, // send URL in request body
         { withCredentials: true }
       );
